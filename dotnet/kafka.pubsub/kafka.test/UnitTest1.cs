@@ -18,13 +18,13 @@ namespace kafka.pubsub.test
             var producerMock = new Mock<IProducer<string>>();
 
             var topic = "test_topic";
-            var producer = new Producer<string>(topic = topic);
+            var producer = new Producer<string>(topic:topic) ;
 
             
             var message = "Hello, Kafka!";
 
             // Act
-            producer.ProduceAsync(message);
+            _ = producer.ProduceAsync(message);
 
             // Assert
             producerMock.Verify(p => p.ProduceAsync(It.IsAny<string>()), Times.Once);
@@ -37,7 +37,7 @@ namespace kafka.pubsub.test
             var consumerMock = new Mock<IConsumer>();
 
             var topic = "test_topic";
-            var consumer = new Consumer<string>(topic = topic);
+            var consumer = new Consumer<string>(topic:topic);
 
             string? message = "Hello, Kafka!";
 
