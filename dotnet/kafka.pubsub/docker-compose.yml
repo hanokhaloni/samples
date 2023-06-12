@@ -39,6 +39,9 @@ services:
       dockerfile: kafka.console/Dockerfile
     depends_on:
       - kafka     
+    networks:
+      - kafka_net
+
 networks:
   kafka_net:
     driver: "bridge"
