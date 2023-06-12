@@ -3,18 +3,19 @@
 
 namespace kafka.pubsub.console
 {
-    public class Producer<T>
+    public class Producer<T> : IProducer<T>
     {
 
-        readonly string? _host;
+        readonly string _host;
         readonly int _port;
-        readonly string? _topic;
+        readonly string _topic;
 
-        public Producer()
+
+        public Producer(string host = "localhost", int port = 9092, string topic = "producer_logs")
         {
-            _host = "localhost";
-            _port = 9092;
-            _topic = "producer_logs";
+            _host = host;
+            _port = port;
+            _topic = topic;
         }
 
         ProducerConfig GetProducerConfig()

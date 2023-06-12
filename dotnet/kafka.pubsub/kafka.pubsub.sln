@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kafka.console", "kafka.cons
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C8409401-BEAE-451C-B123-7BD04C925C2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kafka.test", "kafka.test\kafka.test.csproj", "{D1658515-ABCD-452B-9A79-EE49D35F541C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C8409401-BEAE-451C-B123-7BD04C925C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8409401-BEAE-451C-B123-7BD04C925C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8409401-BEAE-451C-B123-7BD04C925C2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1658515-ABCD-452B-9A79-EE49D35F541C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1658515-ABCD-452B-9A79-EE49D35F541C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1658515-ABCD-452B-9A79-EE49D35F541C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1658515-ABCD-452B-9A79-EE49D35F541C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
