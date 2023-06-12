@@ -14,8 +14,9 @@ namespace kafka.pubsub.console
             var producer = new Producer<Message>();
 
             var consumer = new Consumer<Message>();
-            var consumeTask = Task.Run(() => consumer.ConsumeAsync());
+            var task = Task.Run(() => consumer.ConsumeAsync());
 
+            Console.WriteLine("Starting publish loop");
             for (int i = 0; i < 25; i++)
             {
                 await producer.ProduceAsync(new Message

@@ -1,19 +1,20 @@
 ﻿using Confluent.Kafka;
+using System.Threading;
 
 
 namespace kafka.pubsub.console
 {
-    public class Consumer<T>
+    public class Consumer<T> : IConsumer
     {
-        readonly string? _host;
+        readonly string _host;
         readonly int _port;
-        readonly string? _topic;
+        readonly string _topic;
 
-        public Consumer()
+        public Consumer(string host = "localhost", int port = 9092, string topic = "producer_logs")
         {
-            _host = "localhost";
-            _port = 9092;
-            _topic = "producer_logs";
+            _host = host;
+            _port = port;
+            _topic = topic;
         }
 
         ConsumerConfig GetConsumerConfig()
@@ -26,7 +27,7 @@ namespace kafka.pubsub.console
             };
         }
 
-        public async Task ConsumeAsync()
+        public async Task ConsumeAsync(CancellationToken cancellationToken = default)
         {
             using (var consumer = new ConsumerBuilder<Ignore, T>(GetConsumerConfig())
                 .SetValueDeserializer(new CustomValueDeserializer<T>())
@@ -36,18 +37,27 @@ namespace kafka.pubsub.console
 
                 Console.WriteLine($"Subscribed to {_topic}");
 
-                await Task.Run(() =>
+                while (!cancellationToken.IsCancellationRequested)
                 {
-                    while (true)
+                    try
                     {
-                        var consumeResult = consumer.Consume(default(CancellationToken));
+                        var consumeResult = consumer.Consume(cancellationToken);
+                        Task.Delay(100);
 
                         Console.WriteLine($"Data Received - {consumeResult.Message.Value}");
-
                     }
-                });
-
-                consumer.Close();
+                    catch (ConsumeException ex)
+                    {
+                        // Handle or log the exception
+                        Console.WriteLine($"Error consuming message: {ex.Message}");
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // Handle or log the cancellation
+                        Console.WriteLine("Consumer cancelled.");
+                    }
+                    
+                }
             }
         }
     }
