@@ -11,11 +11,10 @@ namespace kafka.pubsub.console
     {
         public static async Task Main(string[] args)
         {
+            var producer = new Producer<Message>();
+
             var consumer = new Consumer<Message>();
             var consumeTask = Task.Run(() => consumer.ConsumeAsync());
-
-
-            var producer = new Producer<Message>();
 
             for (int i = 0; i < 25; i++)
             {
@@ -28,6 +27,7 @@ namespace kafka.pubsub.console
             }
 
             Console.WriteLine("Publish Success!");
+            Console.ReadKey();
 
         }
     }
