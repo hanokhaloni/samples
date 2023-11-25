@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Calculator1s
+namespace Calculators
 {
     public class Calculator1
     {
@@ -37,7 +37,7 @@ namespace Calculator1s
         {
             Console.WriteLine("Stating ParallelExecuteCalculation()");
             CancellationTokenSource cts = new CancellationTokenSource();
-            cts.CancelAfter(TimeSpan.FromSeconds(20000));
+            cts.CancelAfter(TimeSpan.FromMilliseconds(520));
 
             try
             {

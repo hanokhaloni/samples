@@ -13,7 +13,7 @@ namespace ThreadBench
     {
         [TestMethod]
         [DataRow(2,  500)]
-        //[DataRow(1,1000)]
+        [DataRow(1, 1000)]
         [DataRow(4,  500)]
         [DataRow(8,  500)]
         [DataRow(16, 500)]
@@ -25,8 +25,8 @@ namespace ThreadBench
         {
             var stopwatch = new Stopwatch();
 
+            Calculators.Calculator1 calculator = new Calculators.Calculator1(numThreads, sleepPerThread);
             stopwatch.Start();
-            Calculators.Calculator calculator = new Calculators.Calculator(numThreads, sleepPerThread);
             int result = calculator.Calculate();
             stopwatch.Stop();
 
