@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 
-namespace Calculators
+namespace Calculator1s
 {
-    public class Calculator
+    public class Calculator1
     {
         private int numThreads;
         private int sleepInterval;
@@ -11,7 +11,7 @@ namespace Calculators
         private int lastResult;
         private Thread[] threads;
 
-        public Calculator(int numThreads, int sleepInterval = 500)
+        public Calculator1(int numThreads, int sleepInterval = 500)
         {
             this.numThreads = numThreads;
             this.sleepInterval = sleepInterval;

@@ -1,5 +1,6 @@
 
 using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -11,34 +12,28 @@ namespace ThreadBench
     public class BenchmarkTests
     {
         [TestMethod]
-        [Ignore]
-        public void RunBenchmark()
-        {
-            //var summary = BenchmarkRunner.Run<CalculatorBenchmark>();
-
-            // Optional: Assert something about the benchmark results if needed
-            // This can be challenging as benchmark results can vary greatly based on the environment
-        }
-        [TestMethod]
+        [DataRow(2,  500)]
         //[DataRow(1,1000)]
-        //[DataRow(2, 500)]
-        //[DataRow(4, 250)]
-        [DataRow(8, 125)]
-        [DataRow(10, 100)]
-        [DataRow(20, 50)]
-        public void test1000_1(int numThreads, int intemsCount)
+        [DataRow(4,  500)]
+        [DataRow(8,  500)]
+        [DataRow(16, 500)]
+        [DataRow(32, 500)]
+        [DataRow(64, 500)]
+        [DataRow(128,500)]
+
+        public void calculator1(int numThreads, int sleepPerThread)
         {
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
-            Calculators.Calculator calculator = new Calculators.Calculator(numThreads, intemsCount);
-            calculator.Calculate();
+            Calculators.Calculator calculator = new Calculators.Calculator(numThreads, sleepPerThread);
+            int result = calculator.Calculate();
             stopwatch.Stop();
 
             var executionTime = stopwatch.ElapsedMilliseconds;
 
             Console.WriteLine($"Execution Time: {executionTime} ms");
-
+            Assert.AreEqual(5 * numThreads, result);
             Assert.IsTrue(executionTime < 2000); // Example: assert that execution time is less than 1000ms
         }
     }
