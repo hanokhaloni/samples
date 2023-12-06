@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ThreadBench
 {
     [TestClass]
-    public class BenchmarkTests
+    public class Calculator2Test
     {
         [TestMethod]
         [DataRow(2,  500)]
@@ -21,7 +21,7 @@ namespace ThreadBench
         [DataRow(64, 500)]
         [DataRow(128,500)]
 
-        public void calculator1(int numThreads, int sleepPerThread)
+        public void calculator2(int numThreads, int sleepPerThread)
         {
             var stopwatch = new Stopwatch();
 

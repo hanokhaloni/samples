@@ -5,6 +5,8 @@ namespace Calculators
 {
     public class Calculator1
     {
+        string customFormat = "dd/MM/yyyyHH:mm:ss.fff";
+
         private int numThreads;
         private int sleepInterval;
         private int[] threadResults;
@@ -41,21 +43,22 @@ namespace Calculators
 
             try
             {
+                Console.WriteLine($"{DateTime.Now.ToString(customFormat)} Starting creating threads");
                 for (int i = 0; i < numThreads; i++)
                 {
-                    Console.WriteLine($"Loop {i}");
+                    ///Console.WriteLine($"Loop {i}");
 
                     int localI = i; // Correctly capture the loop variable
                     threads[localI] = new Thread(() =>
                     {
-                        Console.WriteLine("Thread {} started");
+                        Thread.CurrentThread.Name = $"WorkerThread-{localI}";
+                        Console.WriteLine($"Starting {Thread.CurrentThread.Name}");
+
                         if (cts.Token.IsCancellationRequested)
                         {
                             throw new OperationCanceledException(cts.Token);
                         }
 
-                        Thread.CurrentThread.Name = $"WorkerThread-{localI}";
-                        Console.WriteLine($"Starting {Thread.CurrentThread.Name}");
 
                         Thread.Sleep(sleepInterval); // Simulating a small unit of work
                         threadResults[localI] = 5; // Each thread works on its own part of the array
@@ -64,18 +67,19 @@ namespace Calculators
                     });
 
                 }
-
+                Console.WriteLine($"{DateTime.Now.ToString(customFormat)} Starting running threads");
                 for (int i = 0; i < numThreads; i++)
                 {
 
                     threads[i].Start();
                 }
 
+                Console.WriteLine($"{DateTime.Now.ToString(customFormat)} Starting wait for result");
                 foreach (Thread thread in threads)
                 {
                     thread.Join(); // Wait for each thread to complete
                 }
-                Console.WriteLine("Ended ParallelExecuteCalculation()");
+                Console.WriteLine($"{DateTime.Now.ToString(customFormat)} End wait for result");
 
             }
             catch (OperationCanceledException ex)
